@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename);
 
 // CJS import for pdf-parse (works reliably under ESM)
 const require = createRequire(import.meta.url);
-const { PDFParse } = require("pdf-parse");
+const pdf = require("pdf-parse");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -67,10 +67,8 @@ const upload = multer({
 async function parsePDF(filePath: string): Promise<string> {
   try {
     const dataBuffer = fs.readFileSync(filePath);
-    // @ts-ignore - PDFParse expects certain options
-    const parser = new PDFParse({ data: dataBuffer });
-    const result = await parser.getText();
-    return result.text;
+    const data = await pdf(dataBuffer);
+    return data.text;
   } catch (error) {
     console.error('Error parsing PDF:', error);
     throw new Error('Failed to parse PDF file');
