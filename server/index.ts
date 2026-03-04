@@ -273,7 +273,7 @@ app.post('/api/compare', upload.array('resumes', 10), async (req, res) => {
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {
-  const staticPath = path.join(__dirname, '../dist');
+  const staticPath = path.join(__dirname, '../../dist');
   app.use(express.static(staticPath));
 
   // Handle client-side routing
