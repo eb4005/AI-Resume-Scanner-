@@ -277,7 +277,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(staticPath));
 
   // Handle client-side routing
-  app.get('*', (req, res) => {
+  app.get(/(.*)/, (req, res) => {
     if (!req.path.startsWith('/api')) {
       res.sendFile(path.join(staticPath, 'index.html'));
     }
