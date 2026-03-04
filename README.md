@@ -2,7 +2,7 @@
 
 An intelligent resume screening and matching application powered by Groq LLM. Upload job descriptions and candidate resumes to get AI-powered analysis, scoring, and rankings.
 
-**Live Demo**: [https://ttltq52qvpt5c.ok.kimi.link](https://ttltq52qvpt5c.ok.kimi.link)
+**Live Demo**: [https://ai-resume-scanner-06fo.onrender.com](https://ai-resume-scanner-06fo.onrender.com)
 
 ![Resume Scanner AI](https://img.shields.io/badge/Resume%20Scanner-AI-blue)
 ![React](https://img.shields.io/badge/React-19-61DAFB)
