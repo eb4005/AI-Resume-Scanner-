@@ -3,10 +3,8 @@ import cors from 'cors';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-// pdf-parse is commonly published as CommonJS; when running this server as ESM
-// ("type": "module" + tsx), a default import can fail. Use createRequire for compatibility.
-import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
+import { PDFParse } from 'pdf-parse';
 import Groq from 'groq-sdk';
 import dotenv from 'dotenv';
 
@@ -15,10 +13,6 @@ dotenv.config();
 // ESM equivalents for __dirname / __filename
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// CJS import for pdf-parse (works reliably under ESM)
-const require = createRequire(import.meta.url);
-const pdf = require("pdf-parse");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -67,7 +61,9 @@ const upload = multer({
 async function parsePDF(filePath: string): Promise<string> {
   try {
     const dataBuffer = fs.readFileSync(filePath);
-    const data = await pdf(dataBuffer);
+    const parser = new PDFParse({ data: dataBuffer });
+    const data = await parser.getText();
+    await parser.destroy();
     return data.text;
   } catch (error) {
     console.error('Error parsing PDF:', error);
